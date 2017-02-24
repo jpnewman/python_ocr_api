@@ -22,6 +22,6 @@ def mcs_ocr(*args, **kwargs):
     logger.info(r.status_code)
 
     data = r.json()
-    logger.info(data)
+    logger.debug(data)
 
     return (args, kwargs)

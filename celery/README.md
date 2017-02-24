@@ -29,7 +29,7 @@ python run.py
 ~~~
 cd workers/find_regions
 
-celery -A find_regions worker --loglevel=info -Q find_regions
+celery -A find_regions worker --loglevel=info -Q find_regions -n find_regions_01@%h
 ~~~
 
 > debug_regions
@@ -37,15 +37,15 @@ celery -A find_regions worker --loglevel=info -Q find_regions
 ~~~
 cd workers/debug_regions
 
-celery -A debug_regions worker --loglevel=info -Q debug_regions
+celery -A debug_regions worker --loglevel=info -Q debug_regions -n debug_regions_01@%h
 ~~~
 
-> validate_address
+> mcs_ocr
 
 ~~~
 cd workers/mcs_ocr
 
-celery -A mcs_ocr worker --loglevel=info -Q mcs_ocr
+celery -A mcs_ocr worker --loglevel=info -Q mcs_ocr -n mcs_ocr_01@%h
 ~~~
 
 > validate_address
@@ -53,5 +53,5 @@ celery -A mcs_ocr worker --loglevel=info -Q mcs_ocr
 ~~~
 cd workers/validate_address
 
-celery -A validate_address worker --loglevel=info -Q validate_address
+celery -A validate_address worker --loglevel=info -Q validate_address -n validate_address_01@%h
 ~~~

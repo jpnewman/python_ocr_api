@@ -10,15 +10,15 @@ logger = get_task_logger(__name__)
 GOOGLE_API_KEY = '<YOUR_GOOGLE_API_KEY>'
 
 def get_address_scan(firstname, surname, postcode_end, scan_file):
-    logger.info(firstname)
-    logger.info(surname)
-    logger.info(postcode_end)
-    logger.info(scan_file)
+    logger.debug(firstname)
+    logger.debug(surname)
+    logger.debug(postcode_end)
+    logger.debug(scan_file)
 
     with open(scan_file, "r") as f:
         regions = json.loads(f.read())
 
-    logger.info(regions)
+    logger.debug(regions)
 
     address = u''
     capture = 0
@@ -42,24 +42,4 @@ def get_address_scan(firstname, surname, postcode_end, scan_file):
         if capture == 2:
             break
 
-
-    logger.info("Addr: {0}".format(address))
     return address
-
-
-def validate_address(address):
-    logger.info(address)
-    url_addr = "https://maps.googleapis.com/maps/api/geocode/json"
-    payload = {'address': address, 'key': GOOGLE_API_KEY}
-    res = requests.get(url_addr, params=payload)
-    logger.info(res.url)
-    out = res.json()
-    print(out)
-
-    results = ''
-    match = ''
-    if len(out['results']):
-        results = out['results'][0]['formatted_address']
-        match = out['results'][0]['partial_match']
-
-    return results, match

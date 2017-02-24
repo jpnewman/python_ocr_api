@@ -1,5 +1,6 @@
 
 from kombu import Queue
+from celery import subtask
 from celery import Celery, chain
 from celery.utils.log import get_task_logger
 
@@ -16,7 +17,7 @@ app.conf.task_queues = (
     Queue('find_regions',    routing_key='find_regions'),
     Queue('debug_regions', routing_key='debug_regions'),
     Queue('mcs_ocr',    routing_key='mcs_ocr'),
-    Queue('validate_address', routing_key='validate_address'),
+    Queue('validate_address', routing_key='validate_address')
 )
 task_default_exchange = 'tasks'
 task_default_exchange_type = 'topic'
@@ -32,5 +33,12 @@ def ocr_pipeline(doc_id):
     # validate_address.delay(data)
     # mcs_ocr.delay(data)
 
-    ret = chain(find_regions.s(data), debug_regions.s(), validate_address.s()).apply_async()
+    # ret = chain(find_regions.s(data).set(queue='find_regions'),
+    #             mcs_ocr.s().set(queue='mcs_ocr'),
+    #             debug_regions.s().set(queue='debug_regions'),
+    #             validate_address.s().set(queue='validate_address')).apply_async()
+
+    ret = chain(mcs_ocr.s(data).set(queue='mcs_ocr'),
+                validate_address.s().set(queue='validate_address')).apply_async()
+
     logger.debug(ret)

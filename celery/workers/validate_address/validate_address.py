@@ -23,13 +23,13 @@ def validate_address(*args, **kwargs):
     address = get_address_scan(DEBUG_FIRSTNAME, DEBUG_SURNAME, DEBUG_POSTCODE_END, os.path.expanduser(DEBUG_REGIONS))
     # google_address, match = validate_address(address)
 
-    logger.info(address)
+    logger.debug(address)
     url_addr = "https://maps.googleapis.com/maps/api/geocode/json"
     payload = {'address': address, 'key': 'AIzaSyBRpWc0C_DvxiGfaOu5fITfJgsqPWzevm0'}
     res = requests.get(url_addr, params=payload)
-    logger.info(res.url)
+    logger.debug(res.url)
     out = res.json()
-    print(out)
+    logger.debug(out)
 
     google_address = ''
     match = ''
