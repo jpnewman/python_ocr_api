@@ -1,0 +1,7 @@
+celery
+pika
+Pillow
+jsonpath-rw
+dpath
+numpy
+opencv-python
