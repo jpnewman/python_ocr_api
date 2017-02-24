@@ -9,20 +9,18 @@ logger = get_task_logger(__name__)
 
 GOOGLE_API_KEY = '<YOUR_GOOGLE_API_KEY>'
 
-def get_address_scan(firstname, surname, postcode_end, scan_file):
+def get_address_scan(firstname, surname, postcode_end, mcs_data):
     logger.debug(firstname)
     logger.debug(surname)
     logger.debug(postcode_end)
-    logger.debug(scan_file)
+    logger.debug(mcs_data)
 
-    with open(scan_file, "r") as f:
-        regions = json.loads(f.read())
-
-    logger.debug(regions)
+    # regions = json.loads(mcs_data)
+    # logger.debug(regions)
 
     address = u''
     capture = 0
-    for region in regions['regions']:
+    for region in mcs_data['regions']:
         for line in region['lines']:
             for word in line['words']:
                 if word["text"].lower() == firstname.lower() or word[

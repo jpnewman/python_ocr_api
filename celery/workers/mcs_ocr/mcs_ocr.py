@@ -24,4 +24,6 @@ def mcs_ocr(*args, **kwargs):
     data = r.json()
     logger.debug(data)
 
-    return (args, kwargs)
+    data_dict = {'mcs_data': data}
+    args[0].update(data_dict)
+    return args

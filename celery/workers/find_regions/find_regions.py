@@ -93,4 +93,4 @@ def find_regions(*args, **kwargs):
     gray_img.save(output_filepath)
 
     args[0]['doc_id'] = output_filepath
-    return (args, kwargs)
+    return args

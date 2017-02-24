@@ -23,8 +23,9 @@ task_default_exchange = 'tasks'
 task_default_exchange_type = 'topic'
 task_default_routing_key = 'task.default'
 
-def ocr_pipeline(doc_id):
+def ocr_pipeline(user_token, doc_id):
     data = {
+        'user_token': user_token,
         'doc_id': doc_id
     }
 
@@ -39,6 +40,7 @@ def ocr_pipeline(doc_id):
     #             validate_address.s().set(queue='validate_address')).apply_async()
 
     ret = chain(mcs_ocr.s(data).set(queue='mcs_ocr'),
+                debug_regions.s().set(queue='debug_regions'),
                 validate_address.s().set(queue='validate_address')).apply_async()
 
     logger.debug(ret)
