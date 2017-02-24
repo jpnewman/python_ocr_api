@@ -25,7 +25,7 @@ def _calc_rect(rect_string):
         rect_list[3] += rect_list[1]
         return tuple(rect_list)
 
-@app.task(name='workers.debug_regions.debug_regions')
+@app.task(name='workers.debug_regions.debug_regions', queue='debug_regions')
 def debug_regions(*args, **kwargs):
 
     img = Image.open(os.path.expanduser(DEBUG_IMAGE))

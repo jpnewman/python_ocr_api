@@ -4,5 +4,5 @@
 ## Run
 
 ~~~
-celery -A debug_regions worker --loglevel=info
+celery -A debug_regions worker --loglevel=info -Q debug_regions
 ~~~

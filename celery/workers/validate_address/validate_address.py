@@ -18,7 +18,7 @@ logger = get_task_logger(__name__)
 app = Celery('validate_address', broker='pyamqp://guest@localhost//')
 
 
-@app.task(name='workers.validate_address.validate_address')
+@app.task(name='workers.validate_address.validate_address', queue='validate_address')
 def validate_address(*args, **kwargs):
     address = get_address_scan(DEBUG_FIRSTNAME, DEBUG_SURNAME, DEBUG_POSTCODE_END, os.path.expanduser(DEBUG_REGIONS))
     # google_address, match = validate_address(address)

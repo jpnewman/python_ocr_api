@@ -22,7 +22,7 @@ logger = get_task_logger(__name__)
 app = Celery('find_regions', broker='pyamqp://guest@localhost//')
 
 
-@app.task(name='workers.find_regions.find_regions')
+@app.task(name='workers.find_regions.find_regions', queue='find_regions')
 def find_regions(*args, **kwargs):
     lower_val = 0 # Lower black pixel
     upper_val = 128 # Upper white pixel

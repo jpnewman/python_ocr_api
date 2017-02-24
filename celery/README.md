@@ -19,6 +19,7 @@ python run.py
 |---|---|
 |```workers/find_regions```|Find Regions|
 |```workers/debug_regions```|Debug Regions|
+|```workers/mcs_ocr```|Microsoft OCR|
 |```workers/validate_address```|Validate Address|
 
 ### Run
@@ -28,7 +29,7 @@ python run.py
 ~~~
 cd workers/find_regions
 
-celery -A find_regions worker --loglevel=info
+celery -A find_regions worker --loglevel=info -Q find_regions
 ~~~
 
 > debug_regions
@@ -36,7 +37,15 @@ celery -A find_regions worker --loglevel=info
 ~~~
 cd workers/debug_regions
 
-celery -A debug_regions worker --loglevel=info
+celery -A debug_regions worker --loglevel=info -Q debug_regions
+~~~
+
+> validate_address
+
+~~~
+cd workers/mcs_ocr
+
+celery -A mcs_ocr worker --loglevel=info -Q mcs_ocr
 ~~~
 
 > validate_address
@@ -44,5 +53,5 @@ celery -A debug_regions worker --loglevel=info
 ~~~
 cd workers/validate_address
 
-celery -A validate_address worker --loglevel=info
+celery -A validate_address worker --loglevel=info -Q validate_address
 ~~~

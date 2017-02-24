@@ -5,3 +5,4 @@ jsonpath-rw
 dpath
 numpy
 opencv-python
+requests
